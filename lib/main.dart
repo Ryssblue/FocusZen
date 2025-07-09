@@ -2,9 +2,15 @@ import 'package:flutter/material.dart';
 import 'screens/home_screen.dart';
 import 'screens/stats_screen.dart';
 import 'screens/settings_screen.dart';
+import 'package:device_preview/device_preview.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    DevicePreview(
+      enabled: !bool.fromEnvironment('dart.vm.product'),
+      builder: (context) => const MyApp(), // aplikasi utama kamu
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -17,9 +23,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor: const Color(0xFF121629),
-        textTheme: const TextTheme(
-          bodyMedium: TextStyle(color: Colors.white),
-        ),
+        textTheme: const TextTheme(bodyMedium: TextStyle(color: Colors.white)),
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueAccent),
         useMaterial3: true,
       ),
