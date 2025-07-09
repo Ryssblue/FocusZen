@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart'; // ✅ Tambahkan ini
 import 'screens/home_screen.dart';
 import 'screens/stats_screen.dart';
 import 'screens/settings_screen.dart';
@@ -7,8 +8,8 @@ import 'package:device_preview/device_preview.dart';
 void main() {
   runApp(
     DevicePreview(
-      enabled: !bool.fromEnvironment('dart.vm.product'),
-      builder: (context) => const MyApp(), // aplikasi utama kamu
+      enabled: !kReleaseMode, // ✅ Ganti dengan ini
+      builder: (context) => const MyApp(),
     ),
   );
 }
@@ -21,6 +22,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'FocusZen',
       debugShowCheckedModeBanner: false,
+      useInheritedMediaQuery: true, // ✅ Tambahan untuk device_preview
+      builder: DevicePreview.appBuilder, // ✅ Tambahan untuk device_preview
       theme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor: const Color(0xFF121629),
         textTheme: const TextTheme(bodyMedium: TextStyle(color: Colors.white)),
